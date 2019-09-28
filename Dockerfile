@@ -18,7 +18,7 @@ RUN apt-get update \
     apt-utils \
     gnupg \
     redis-tools \
-    mysql-client \
+    mariadb-client \
     git \
     vim \
     wget \
