@@ -1,3 +1,4 @@
+version: '2'
 services:
     apache:
         image: granghetti/magento2-apache
@@ -7,9 +8,9 @@ services:
             - '9001:9000' # xdebug
             # - "35729:35729" # live reload
         volumes:
-            - ./src:/var/www/html
+            - ../:/var/www/html
             - ~/.composer:/var/www/.composer
-            - ~/.npm:/var/www/.npm
+            # - ~/.npm:/var/www/.npm
             # - ~/.nvm:/var/www/.nvm
         environment:
             XDEBUG_CONFIG: 'remote_host=localhost'
@@ -19,7 +20,7 @@ services:
         links:
             - db
         networks:
-            - <project_name>-network
+            - magento2-network
 
     db:
         image: mariadb
@@ -33,24 +34,24 @@ services:
         volumes:
             - dbdata:/var/lib/mysql
         networks:
-            - <project_name>-network
+            - magento2-network
 
     redis:
         image: redis
         ports:
             - 6379
         networks:
-            - <project_name>-network
+            - magento2-network
 
     redis-session:
         image: redis
         ports:
             - 6379
         networks:
-            - <project_name>-network
+            - magento2-network
 
 networks:
-    <project_name>-network:
+    magento2-network:
         driver: bridge
 
 volumes:
