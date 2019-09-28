@@ -45,6 +45,7 @@ RUN docker-php-ext-configure \
     soap \
     xsl \
     zip \
+    docker-php-ext-enable \
     xdebug
 
 # Install Composer
