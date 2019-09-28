@@ -44,9 +44,7 @@ RUN docker-php-ext-configure \
     pdo_mysql \
     soap \
     xsl \
-    zip \
-    docker-php-ext-enable \
-    xdebug
+    zip
 
 # Install Composer
 
