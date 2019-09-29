@@ -56,7 +56,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 # Install XDebug
 
 RUN yes | pecl install xdebug && \
-    echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.iniOLD
+    echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)\nxdebug.idekey=\"PHPSTORM\"\nxdebug.default_enable=1\nxdebug.remote_port=9000\nxdebug.remote_autostart=1\nxdebug.remote_enable=1\nxdebug.remote_handler=dbgp\nxdebug.profiler_enable=0\nxdebug.profiler_output_dir=\"/var/www/html\"\nxdebug.remote_connect_back=1\nxdebug.cli_color=1\nxdebug.var_display_max_depth=10" > /usr/local/etc/php/conf.d/xdebug.ini
 
 # Install Magerun 2
 
@@ -68,7 +68,6 @@ RUN wget https://files.magerun.net/n98-magerun2.phar \
 
 COPY docker/utils/config/php.ini /usr/local/etc/php/php.ini
 COPY docker/utils/config/magento.conf /etc/apache2/sites-available/magento.conf
-COPY docker/utils/config/custom-xdebug.ini /usr/local/etc/php/conf.d/custom-xdebug.ini
 COPY docker/utils/bin/* /usr/local/bin/
 COPY docker/utils/users/* /var/www/
 RUN chmod +x /usr/local/bin/*
