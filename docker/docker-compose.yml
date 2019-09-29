@@ -1,20 +1,17 @@
-version: '2'
+version: '3.2'
 services:
     apache:
         image: granghetti/magento2-apache
-        # build: .
         ports:
-            - '80:80' # web
-            - '9001:9000' # xdebug
-            # - "35729:35729" # live reload
+            - "443:443"
+            - "80:80"
+            - "8080:8080"
+            - "9000:9000"
         volumes:
-            - ../:/var/www/html
+            - ./:/var/www/html
             - ~/.composer:/var/www/.composer
-            # - ~/.npm:/var/www/.npm
-            # - ~/.nvm:/var/www/.nvm
         environment:
-            XDEBUG_CONFIG: 'remote_host=localhost'
-            PHP_IDE_CONFIG: 'serverName=Docker'
+            XDEBUG_REMOTE_HOST: 172.17.0.1
         depends_on:
             - db
         links:
@@ -32,7 +29,7 @@ services:
             - MYSQL_USER=magento
             - MYSQL_PASSWORD=magento
         volumes:
-            - dbdata:/var/lib/mysql
+            - ./db:/var/lib/mysql
         networks:
             - magento2-network
 
@@ -50,10 +47,23 @@ services:
         networks:
             - magento2-network
 
+    elasticsearch:
+        image: elasticsearch:2.4
+        environment:
+            - cluster.name=docker-cluster
+            - bootstrap.memory_lock=true
+            - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        volumes:
+            - ./elasticsearchdata:/usr/share/elasticsearch/data
+        ports:
+            - 9200:9200
+        networks:
+            - magento2-network
+
 networks:
     magento2-network:
         driver: bridge
-
-volumes:
-    dbdata:
-        driver: local
