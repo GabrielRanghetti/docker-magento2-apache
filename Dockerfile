@@ -29,6 +29,7 @@ RUN apt-get update \
     tar \
     cron \
     bash-completion \
+    sphinxsearch \
     && apt-get clean
 
 # Install Magento Dependencies
