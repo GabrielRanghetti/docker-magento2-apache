@@ -46,8 +46,7 @@ RUN docker-php-ext-configure \
     soap \
     xsl \
     sockets \
-    zip \
-    mcrypt
+    zip
 
 # Install Composer
 
