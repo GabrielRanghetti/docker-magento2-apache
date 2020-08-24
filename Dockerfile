@@ -27,6 +27,7 @@ RUN apt-get update \
     psmisc \
     unzip \
     zip \
+    libzip-dev \
     tar \
     cron \
     bash-completion \
