@@ -26,6 +26,7 @@ RUN apt-get update \
     lynx \
     psmisc \
     unzip \
+    zip \
     tar \
     cron \
     bash-completion \
