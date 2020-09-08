@@ -81,7 +81,6 @@ COPY docker/utils/config/php.ini /usr/local/etc/php/php.ini
 COPY docker/utils/config/server.crt /etc/apache2/ssl/server.crt
 COPY docker/utils/config/server.key /etc/apache2/ssl/server.key
 COPY docker/utils/config/magento.conf /etc/apache2/sites-available/magento.conf
-COPY docker/utils/config/cron.deny /etc/cron.deny
 COPY docker/utils/bin/* /usr/local/bin/
 COPY docker/utils/users/* /var/www/
 RUN chmod +x /usr/local/bin/*
@@ -102,7 +101,8 @@ RUN chmod 777 -Rf /var/www /var/www/.* \
     && a2enmod rewrite \
     && a2enmod ssl \
     && a2enmod headers \
-    && service apache2 restart
+    && service apache2 restart \
+    && service cron stop
 
 VOLUME /var/www/html
 WORKDIR /var/www/html
