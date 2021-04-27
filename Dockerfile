@@ -52,7 +52,7 @@ RUN docker-php-ext-configure \
 # Install Composer
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
-    && php composer-setup.php \
+    && php composer-setup.php --quiet \
     && php -r "unlink('composer-setup.php');" \
     && mv composer.phar /usr/local/bin/composer
 
@@ -89,8 +89,6 @@ RUN curl -o /etc/bash_completion.d/m2install-bash-completion https://raw.githubu
 RUN curl -o /etc/bash_completion.d/n98-magerun2.phar.bash https://raw.githubusercontent.com/netz98/n98-magerun2/master/res/autocompletion/bash/n98-magerun2.phar.bash
 RUN echo "source /etc/bash_completion" >> /root/.bashrc
 RUN echo "source /etc/bash_completion" >> /var/www/.bashrc
-
-RUN composer global require hirak/prestissimo
 
 RUN chmod 777 -Rf /var/www /var/www/.* \
     && chown -Rf www-data:www-data /var/www /var/www/.* \
